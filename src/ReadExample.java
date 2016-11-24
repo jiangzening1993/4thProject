@@ -7,7 +7,7 @@ public class ReadExample
 		try
 		{
 			// Open the wav file specified as the first argument
-			WavFile wavFile = WavFile.openWavFile(new File("C:/Users/Jiang/Desktop/University/4thProject/running_outside_20ms.wav"));
+			WavFile wavFile = WavFile.openWavFile(new File("C:/Users/Peiji/git/4thProject/sources/running_outside_20ms.wav"));
 
 			// Display information about the wav file
 			wavFile.display();
@@ -22,18 +22,21 @@ public class ReadExample
 			double min = Double.MAX_VALUE;
 			double max = Double.MIN_VALUE;
 			double[] data = new double[1024];
-			int i = 0;
+			int count = 0, i = 0;
 
 			do
 			{
 				// Read frames into buffer
 				framesRead = wavFile.readFrames(buffer, 100);
-
-				for(; i < framesRead; i++){
-					data[i] = buffer[i];
-					System.out.println(data[i]);
-					System.out.println(i);
+				
+				i = count * 100;
+				for(int j= 0; j < framesRead; j++){
+					data[i + j] = buffer[j];
+					System.out.println(data[i + j]);
+					if(i + j >= 1024) break;
 				}
+				
+				count++;
 				
 				// Loop through frames and look for minimum and maximum value
 				for (int s=0 ; s<framesRead * numChannels ; s++)
