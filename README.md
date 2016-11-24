@@ -1,8 +1,7 @@
-# 4thProject
+# 4thProject Using radar to detect range
 
-Using radar to detect range
+This code need to implement JTransforms library.
 
-Need to implement JTransforms library while using, which can be found in sources folder
-
-Sample wav file for testing:
-running_outside_20ms.wav
+Sources:
+Sample wav file for testing: running_outside_20ms.wav
+External Library: JTransforms-3.1-with-dependencies.jar
