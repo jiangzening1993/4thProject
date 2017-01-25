@@ -31,6 +31,12 @@ public class FFT {
         }
     }
 
+    /**
+     * 用于频谱显示的快速傅里叶变换
+     * 
+     * @param realIO
+     *            输入FFT_N个实数，也用它暂存fft后的FFT_N/2个输出值(复数模的平方)。
+     */
     public void calculate(float[] realIO) {
         int i, j, k, ir, exchanges = 1, idx = FFT_N_LOG - 1;
         float cosv, sinv, tmpr, tmpi;
@@ -58,7 +64,14 @@ public class FFT {
         }
 
         j = FFT_N >> 1;
-
+        /*
+         * 输出模的平方(的FFT_N倍):
+         * for(i = 1; i <= j; i++)
+         * realIO[i-1] = real[i] * real[i] + imag[i] * imag[i];
+         * 
+         * 如果FFT只用于频谱显示,可以"淘汰"幅值较小的而减少浮点乘法运算. MINY的值
+         * 和Spectrum.Y0,Spectrum.logY0对应.
+         */
         sinv = MINY;
         cosv = -MINY;
         for (i = j; i != 0; i--) {
@@ -72,14 +85,8 @@ public class FFT {
     }
 
     public static void main(String[] args) {
-        FFT fft = new FFT();
-        ReadFromWav rfw = new ReadFromWav();
-        double[] data = rfw.getData();
-        float[] realIo = new float[data.length];
-        for (int i = 0 ; i < data.length; i++)
-        {
-            realIo[i] = (float) data[i];
-        }
-        fft.calculate(realIo);
+        FFT fft2 = new FFT();
+        float[] realIo = { 1, 2 };
+        fft2.calculate(realIo);
     }
 }
